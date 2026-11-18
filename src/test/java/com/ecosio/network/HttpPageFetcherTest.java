@@ -23,6 +23,7 @@ class HttpPageFetcherTest {
 
     private static final Duration TIMEOUT = Duration.ofSeconds(2);
     private static final URI TARGET_URI = URI.create("https://ecosio.com/en/blog");
+    private static final String EXPECTED_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 
     @Test
     void constructorThrowsWhenConnectionTimeoutIsNull() {
@@ -75,7 +76,7 @@ class HttpPageFetcherTest {
         assertEquals(TARGET_URI, lastRequest.uri());
         assertEquals("GET", lastRequest.method());
         assertEquals(Optional.of(TIMEOUT), lastRequest.timeout());
-        assertEquals(Optional.of("com.ecosio.crawler/1.0"), lastRequest.headers().firstValue("User-Agent"));
+        assertEquals(Optional.of(EXPECTED_USER_AGENT), lastRequest.headers().firstValue("User-Agent"));
         assertEquals(Optional.of("text/html,application/xhtml+xml"), lastRequest.headers().firstValue("Accept"));
     }
 
